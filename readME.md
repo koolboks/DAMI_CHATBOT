@@ -1,4 +1,4 @@
-```markdown
+
 # Chatbot Web Application Documentation
 
 This documentation provides a step-by-step guide on how to set up and run the chatbot web application.
@@ -10,7 +10,7 @@ This documentation provides a step-by-step guide on how to set up and run the ch
 4. [HTML Structure](#html-structure)
 5. [CSS Styling](#css-styling)
 6. [JavaScript Functionality](#javascript-functionality)
-7. [Backend Integration](#backend-integration)
+  
 
 ## Introduction
 This is a simple chatbot web application built with HTML, CSS, and JavaScript, using jQuery and Bootstrap for styling and functionality. It allows users to send messages and receive responses from a chatbot.
@@ -23,6 +23,7 @@ Before you begin, ensure you have the following:
 
 ## File Structure
 The project consists of a single HTML file. Here is the basic file structure:
+
 ```
 chatbot/
 │
@@ -123,3 +124,61 @@ The CSS styles are embedded within the HTML file. They style the body, chat cont
 <style>
     body { padding: 20px; display: flex; justify-content: center; }
     .chat-container { width: 100%; max-width
+```
+
+
+# JavaScript Functionality
+The JavaScript functionality is embedded within the HTML file. It handles sending and receiving messages, as well as rendering the chat history.
+
+```javascript
+<script>
+    $(document).ready(function() {
+        const chatBox = $("#chat-box");
+        const chatForm = $("#chat-form");
+        const messageInput = $("#message");
+        let chatHistory = [];
+        let conversationId = null;
+
+        chatForm.on("submit", function(event) {
+            event.preventDefault();
+            const message = messageInput.val();
+            if (message.trim() === "") return;
+
+            appendMessage("user", message);
+            chatHistory.push({"role": "user", "content": message});
+
+            $.ajax({
+                url: "/chat",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({message: message, chat_history: chatHistory, user_id: "ayoabmi", conversation_id: conversationId}),
+                success: function(response) {
+                    const botMessage = response.response;
+                    conversationId = response.conversation_id; // Update the conversation ID
+                    appendMessage("assistant", botMessage);
+                    chatHistory.push({"role": "assistant", "content": botMessage, "conversation_id": conversationId});
+                },
+                error: function() {
+                    appendMessage("assistant", "There was an error. Please try again.");
+                }
+            });
+
+            messageInput.val("");
+        });
+
+        function appendMessage(role, content) {
+            const messageElement = $("<div>").addClass("chat-message").addClass(role);
+            if (role === "assistant") {
+                // Render Markdown content using marked.js
+                messageElement.html(marked.parse(content));
+            } else {
+                messageElement.text(content);
+            }
+            chatBox.append(messageElement);
+            chatBox.scrollTop(chatBox[0].scrollHeight);
+        }
+    });
+</script>
+
+
+```
