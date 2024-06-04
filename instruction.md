@@ -1,4 +1,4 @@
-```markdown
+
 # Chatbot Web Application Documentation
 
 This documentation provides a step-by-step guide on how the front end sends and receives messages from the back end using jQuery. It also includes examples of how to interact with the back end using JavaScript, Python, and cURL.
