@@ -66,7 +66,7 @@ $(document).ready(function() {
         chatHistory.push({"role": "user", "content": message});
 
         $.ajax({
-            url: "https://I_WILL_GIVE_YOU/chat",  // Replace with your Bubble API endpoint
+            url: "https://I_WILL_GIVE_YOU/chat",  // Replace with your AWS API endpoint
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -111,7 +111,7 @@ let conversationId = null;
 function sendMessage(message) {
     chatHistory.push({"role": "user", "content": message});
 
-    fetch('https://I_WILL_GIVE_YOU/chat', {  // Replace with your Bubble API endpoint
+    fetch('https://I_WILL_GIVE_YOU/chat', {  // Replace with your AWS API endpoint
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -154,7 +154,7 @@ def send_message(message):
     chat_history.append({"role": "user", "content": message})
 
     response = requests.post(
-        url='I_WILL_GIVE_YOU/chat',  # Replace with your Bubble API endpoint
+        url='I_WILL_GIVE_YOU/chat',  # Replace with your AWS API endpoint
         headers={'Content-Type': 'application/json'},
         data=json.dumps({
             'message': message,
@@ -185,7 +185,7 @@ chat_history='[{"role": "user", "content": "Hello, chatbot!"}]'
 user_id="unique_user_id"
 conversation_id=null
 
-curl -X POST https://I_WILL_GIVE_YOU/chat \  # Replace with your Bubble API endpoint
+curl -X POST https://I_WILL_GIVE_YOU/chat \  # Replace with your AWS API endpoint
      -H "Content-Type: application/json" \
      -d '{
            "message": "Hello, chatbot!",
@@ -195,5 +195,5 @@ curl -X POST https://I_WILL_GIVE_YOU/chat \  # Replace with your Bubble API endp
          }'
 ```
 
-This concludes the documentation for connecting your chatbot web application to a Bubble chat template. Follow these steps to set up and integrate your front end with the Bubble back end.
+This concludes the documentation for connecting your chatbot web application to a Bubble chat template. Follow these steps to set up and integrate your front end with the Bubble Front end.
 ```
